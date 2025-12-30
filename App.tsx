@@ -1,25 +1,17 @@
 import './global.css';
-import { Home } from './components/Home';
-import Tabs from './Screens/Tabs'; // default export
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { View } from 'react-native';
-// import Login from 'Pages/Login';
-
+import Tabs from './Screens/Tabs';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import AppBackground from 'components/AppBackground';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
   return (
-    <SafeAreaView>
-      {/* Main Home Page */}
-      <View className='h-screen' >
-        <Home />
-      </View>
-
-      {/* <Login /> */}
-
-      {/* Bottom Tabs */}
-    
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <AppBackground>
+        <NavigationContainer>
+          <Tabs />
+        </NavigationContainer>
+      </AppBackground>
+    </SafeAreaProvider>
   );
 }
-
-
