@@ -1,0 +1,1 @@
+//Include ViewReports on click
