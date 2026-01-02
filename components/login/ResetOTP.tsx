@@ -7,7 +7,7 @@ export default function OTP() {
     <SafeAreaView className="flex-1 bg-white px-6">
       {/* Title */}
       <Text className="mt-14 text-center text-3xl font-bold text-[#0B1B5C]">
-        Enter{'\n'}Verification Code
+        Enter{'\n'}Reset Code
       </Text>
 
       <Text className="mt-3 text-center text-gray-500">
