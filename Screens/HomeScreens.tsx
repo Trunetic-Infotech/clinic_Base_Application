@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Pressable, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   FileText,
@@ -105,134 +105,136 @@ export default function HomeScreen() {
       start={{ x: 0.5, y: 0 }}
       end={{ x: 0.5, y: 0.5 }}
       style={{ flex: 1 }}>
-      <SafeAreaView className="flex-1" edges={['top']}>
-        {activeScreen === 'home' ? (
-          // ===== Full Home Content =====
-          <View className="flex-1 p-2">
-            {/* Header */}
-            <View className="flex-row items-center justify-between px-4 py-1">
-              <View className="ml-[5%]">
-                <Text className="text-4xl text-indigo-900">Welcome,</Text>
-                <Text className="text-3xl font-bold text-indigo-900">Dr. XYZ</Text>
-              </View>
-
-              <View className="mt-6 flex-row items-center gap-4">
-                <Pressable onPress={() => setActiveScreen('notifications')}>
-                  <Bell size={34} color="black" />
-                </Pressable>
-                <View>
-                  <Image
-                    source={{ uri: 'https://picsum.photos/200' }}
-                    className="h-16 w-16 rounded-full"
-                  />
+      <ScrollView>
+        <SafeAreaView className="flex-1" edges={['top']}>
+          {activeScreen === 'home' ? (
+            // ===== Full Home Content =====
+            <View className="flex-1 p-2">
+              {/* Header */}
+              <View className="flex-row items-center justify-between px-4 py-1">
+                <View className="ml-[5%]">
+                  <Text className="text-4xl text-indigo-900">Welcome,</Text>
+                  <Text className="text-3xl font-bold text-indigo-900">Dr. XYZ</Text>
                 </View>
-              </View>
-            </View>
 
-            {/* Overview Section */}
-            <View className="flex-1 overflow-hidden rounded-tl-[9%] rounded-tr-[9%] bg-white p-1">
-              <View className="p-4">
-                <Text className="mb-4 text-xl font-semibold">Today's Overview</Text>
-                <View className="flex-row">
-                  {overviewData.map((item) => (
-                    <View
-                      key={item.id}
-                      className="mx-1 flex-1 items-center rounded-xl border border-gray-400 p-2">
-                      <Text className="text-2xl font-bold">{item.value}</Text>
-                      <Text className="mt-1 text-center text-sm">{item.label}</Text>
-                    </View>
-                  ))}
+                <View className="mt-6 flex-row items-center gap-4">
+                  <Pressable onPress={() => setActiveScreen('notifications')}>
+                    <Bell size={34} color="black" />
+                  </Pressable>
+                  <View>
+                    <Image
+                      source={{ uri: 'https://picsum.photos/200' }}
+                      className="h-16 w-16 rounded-full"
+                    />
+                  </View>
                 </View>
               </View>
 
-              {/* Actions Section */}
-              <View className="border-gray-200 p-3">
-                <Text className="mb-4 ml-4 mt-1 text-xl font-bold">Quick Actions</Text>
-                <View className="flex-row flex-wrap">
-                  {actionsData.map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <TouchableOpacity
+              {/* Overview Section */}
+              <View className="flex-1 overflow-hidden rounded-tl-[9%] rounded-tr-[9%] bg-white p-1">
+                <View className="p-4">
+                  <Text className="mb-4 text-xl font-semibold">Today's Overview</Text>
+                  <View className="flex-row">
+                    {overviewData.map((item) => (
+                      <View
                         key={item.id}
-                        onPress={() => {
-                          if (item.screen === 'appointments') {
-                            // This switches to the actual Patients tab
-                            navigation.navigate('Patients');
-                          } else {
-                            // Keep local overlay for other screens
-                            setActiveScreen(item.screen);
-                          }
-                        }}
-                        className="mx-1 mb-3 flex-1 items-center rounded-xl border border-gray-400 p-2">
-                        <Icon size={28} color="#2563EB" />
-                        <Text className="mt-2 text-center text-sm font-medium">{item.label}</Text>
-                      </TouchableOpacity>
-                    );
-                  })}
+                        className="mx-1 flex-1 items-center rounded-xl border border-gray-400 p-2">
+                        <Text className="text-2xl font-bold">{item.value}</Text>
+                        <Text className="mt-1 text-center text-sm">{item.label}</Text>
+                      </View>
+                    ))}
+                  </View>
                 </View>
 
-                {/* Appointments Section */}
-                <View className="mt-4 rounded-2xl bg-white p-4 shadow-sm">
-                  <Text className="mb-4 text-xl font-bold text-gray-900">
-                    Upcoming Appointments
-                  </Text>
-                  {appointments.map((item) => (
-                    <View
-                      key={item.id}
-                      className="mb-3 flex-row items-center justify-between rounded-xl border border-gray-200 bg-gray-50 p-3">
-                      <View className="flex-1">
-                        <Text className="text-base font-semibold text-gray-900">{item.name}</Text>
-                        <Text className="mt-1 text-sm text-gray-500">{item.issue}</Text>
-                      </View>
-                      <View className="items-end">
-                        <Text className="text-base font-semibold text-blue-600">{item.time}</Text>
-                        <Text className="mt-1 text-sm text-gray-500">{item.type}</Text>
-                        <View
-                          className={`mt-1 rounded-full px-2 py-[2px] ${getStatusStyle(item.status)}`}>
-                          <Text className="text-xs font-semibold">{item.status}</Text>
+                {/* Actions Section */}
+                <View className="border-gray-200 p-3">
+                  <Text className="mb-4 ml-4 mt-1 text-xl font-bold">Quick Actions</Text>
+                  <View className="flex-row flex-wrap">
+                    {actionsData.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <TouchableOpacity
+                          key={item.id}
+                          onPress={() => {
+                            if (item.screen === 'appointments') {
+                              // This switches to the actual Patients tab
+                              navigation.navigate('Patients');
+                            } else {
+                              // Keep local overlay for other screens
+                              setActiveScreen(item.screen);
+                            }
+                          }}
+                          className="mx-1 mb-3 flex-1 items-center rounded-xl border border-gray-400 p-2">
+                          <Icon size={28} color="#2563EB" />
+                          <Text className="mt-2 text-center text-sm font-medium">{item.label}</Text>
+                        </TouchableOpacity>
+                      );
+                    })}
+                  </View>
+
+                  {/* Appointments Section */}
+                  <View className="mt-4 rounded-2xl bg-white p-4 shadow-sm">
+                    <Text className="mb-4 text-xl font-bold text-gray-900">
+                      Upcoming Appointments
+                    </Text>
+                    {appointments.map((item) => (
+                      <View
+                        key={item.id}
+                        className="mb-3 flex-row items-center justify-between rounded-xl border border-gray-200 bg-gray-50 p-3">
+                        <View className="flex-1">
+                          <Text className="text-base font-semibold text-gray-900">{item.name}</Text>
+                          <Text className="mt-1 text-sm text-gray-500">{item.issue}</Text>
+                        </View>
+                        <View className="items-end">
+                          <Text className="text-base font-semibold text-blue-600">{item.time}</Text>
+                          <Text className="mt-1 text-sm text-gray-500">{item.type}</Text>
+                          <View
+                            className={`mt-1 rounded-full px-2 py-[2px] ${getStatusStyle(item.status)}`}>
+                            <Text className="text-xs font-semibold">{item.status}</Text>
+                          </View>
                         </View>
                       </View>
-                    </View>
-                  ))}
+                    ))}
+                  </View>
                 </View>
               </View>
             </View>
-          </View>
-        ) : (
-          // ===== Only Action Card Page =====
-          <View className="flex-1">
-            {/* Elegant Header with Back Button */}
-            <LinearGradient
-              colors={['rgba(162, 236, 255, 0.89)', 'transparent']}
-              start={{ x: 0.5, y: 0 }}
-              end={{ x: 0.5, y: 1 }}
-              className="absolute left-0 right-0 top-0 h-32"
-            />
+          ) : (
+            // ===== Only Action Card Page =====
+            <View className="flex-1">
+              {/* Elegant Header with Back Button */}
+              <LinearGradient
+                colors={['rgba(162, 236, 255, 0.89)', 'transparent']}
+                start={{ x: 0.5, y: 0 }}
+                end={{ x: 0.5, y: 1 }}
+                className="absolute left-0 right-0 top-0 h-32"
+              />
 
-            <View className="flex-row items-center px-4 pb-6 pt-4">
-              <TouchableOpacity
-                onPress={() => setActiveScreen('home')}
-                className="rounded-full bg-white/80 p-3 shadow-md active:opacity-70"
-                style={{ elevation: 4 }}>
-                <ChevronLeft size={28} color="#1e293b" strokeWidth={2.5} />
-              </TouchableOpacity>
+              <View className="flex-row items-center px-4 pb-6 pt-4">
+                <TouchableOpacity
+                  onPress={() => setActiveScreen('home')}
+                  className="rounded-full bg-white/80 p-3 shadow-md active:opacity-70"
+                  style={{ elevation: 4 }}>
+                  <ChevronLeft size={28} color="#1e293b" strokeWidth={2.5} />
+                </TouchableOpacity>
 
-              <Text className="ml-4 text-3xl font-bold text-indigo-900">
-                {activeScreen === 'newpatient' && 'New Patient'}
-                {activeScreen === 'followup' && 'Add Follow Up'}
-                {activeScreen === 'notifications' && 'Notifications'}
-              </Text>
+                <Text className="ml-4 text-3xl font-bold text-indigo-900">
+                  {activeScreen === 'newpatient' && 'New Patient'}
+                  {activeScreen === 'followup' && 'Add Follow Up'}
+                  {activeScreen === 'notifications' && 'Notifications'}
+                </Text>
+              </View>
+
+              {/* Main Content with padding */}
+              <View className="flex-1 px-4 pb-6">
+                {activeScreen === 'newpatient' && <NewPatients />}
+                {activeScreen === 'followup' && <FollowUpHome />}
+                {activeScreen === 'notifications' && <Notifications />}
+              </View>
             </View>
-
-            {/* Main Content with padding */}
-            <View className="flex-1 px-4 pb-6">
-              {activeScreen === 'newpatient' && <NewPatients />}
-              {activeScreen === 'followup' && <FollowUpHome />}
-              {activeScreen === 'notifications' && <Notifications />}
-            </View>
-          </View>
-        )}
-      </SafeAreaView>
+          )}
+        </SafeAreaView>
+      </ScrollView>
     </LinearGradient>
   );
 }
