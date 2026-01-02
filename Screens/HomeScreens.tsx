@@ -6,7 +6,8 @@ import { NewPatients } from '../components/patient/NewPatient';
 import { useState } from 'react';
 import FollowUpHome from 'components/home/FollowUpHome';
 import PatientsScreen from './PatientsScreens';
-import Notifications from '../components/home/Notifications';
+import FollowUp from 'components/home/FollowUpHome';
+import Notifications from 'components/home/Notifications';
 
 type OverviewCard = { id: number; value: number; label: string };
 type ActionsCard = {
@@ -36,7 +37,6 @@ const actionsData: ActionsCard[] = [
   { id: 2, label: 'Create Prescriptions', icon: FileText, screen: 'appointments' },
   { id: 3, label: 'Appointments', icon: CalendarCheck, screen: 'appointments' },
   { id: 4, label: 'Add Follow Up', icon: Repeat, screen: 'followup' },
-  
 ];
 
 const appointments: Appointment[] = [
@@ -80,7 +80,7 @@ const getStatusStyle = (status: string) => {
 };
 
 export default function HomeScreen() {
-  type Screen = 'home' | 'newpatient' | 'prescription' | 'appointments' | 'followup'|"notifications";
+  type Screen = 'home' | 'newpatient' | 'prescription' | 'appointments' | 'followup'|'notifications';
   const [activeScreen, setActiveScreen] = useState<Screen>('home');
 
   return (
