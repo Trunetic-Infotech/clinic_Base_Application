@@ -14,7 +14,8 @@ import { NewPatients } from '../components/patient/NewPatient';
 import { useState } from 'react';
 import FollowUpHome from 'components/home/FollowUpHome';
 import PatientsScreen from './PatientsScreens';
-import Notifications from '../components/home/Notifications';
+import FollowUp from 'components/home/FollowUpHome';
+import Notifications from 'components/home/Notifications';
 import { useNavigation } from '@react-navigation/native';
 type OverviewCard = { id: number; value: number; label: string };
 type ActionsCard = {
