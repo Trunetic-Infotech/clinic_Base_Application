@@ -1,19 +1,27 @@
 import { View, Text, Pressable, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { FileText, LucideIcon, UserPlus, CalendarCheck, Repeat, Bell } from 'lucide-react-native';
+import {
+  FileText,
+  LucideIcon,
+  UserPlus,
+  CalendarCheck,
+  Repeat,
+  Bell,
+  ChevronLeft,
+} from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { NewPatients } from '../components/patient/NewPatient';
 import { useState } from 'react';
 import FollowUpHome from 'components/home/FollowUpHome';
 import PatientsScreen from './PatientsScreens';
 import Notifications from '../components/home/Notifications';
-
+import { useNavigation } from '@react-navigation/native';
 type OverviewCard = { id: number; value: number; label: string };
 type ActionsCard = {
   id: number;
   label: string;
   icon: LucideIcon;
-  screen: 'newpatient' | 'prescription' | 'appointments' | 'followup'| 'notifications';
+  screen: 'newpatient' | 'prescription' | 'appointments' | 'followup' | 'notifications';
 };
 type Appointment = {
   id: number;
@@ -36,7 +44,6 @@ const actionsData: ActionsCard[] = [
   { id: 2, label: 'Create Prescriptions', icon: FileText, screen: 'appointments' },
   { id: 3, label: 'Appointments', icon: CalendarCheck, screen: 'appointments' },
   { id: 4, label: 'Add Follow Up', icon: Repeat, screen: 'followup' },
-  
 ];
 
 const appointments: Appointment[] = [
@@ -80,7 +87,14 @@ const getStatusStyle = (status: string) => {
 };
 
 export default function HomeScreen() {
-  type Screen = 'home' | 'newpatient' | 'prescription' | 'appointments' | 'followup'|"notifications";
+  const navigation = useNavigation<any>();
+  type Screen =
+    | 'home'
+    | 'newpatient'
+    | 'prescription'
+    | 'appointments'
+    | 'followup'
+    | 'notifications';
   const [activeScreen, setActiveScreen] = useState<Screen>('home');
 
   return (
@@ -139,7 +153,15 @@ export default function HomeScreen() {
                     return (
                       <TouchableOpacity
                         key={item.id}
-                        onPress={() => setActiveScreen(item.screen)}
+                        onPress={() => {
+                          if (item.screen === 'appointments') {
+                            // This switches to the actual Patients tab
+                            navigation.navigate('Patients');
+                          } else {
+                            // Keep local overlay for other screens
+                            setActiveScreen(item.screen);
+                          }
+                        }}
                         className="mx-1 mb-3 flex-1 items-center rounded-xl border border-gray-400 p-2">
                         <Icon size={28} color="#2563EB" />
                         <Text className="mt-2 text-center text-sm font-medium">{item.label}</Text>
@@ -177,15 +199,36 @@ export default function HomeScreen() {
           </View>
         ) : (
           // ===== Only Action Card Page =====
-          <View className="flex-1 p-0">
-            {activeScreen === 'newpatient' && <NewPatients />}
-            {activeScreen === 'appointments' && <PatientsScreen />}
+          <View className="flex-1">
+            {/* Elegant Header with Back Button */}
+            <LinearGradient
+              colors={['rgba(162, 236, 255, 0.89)', 'transparent']}
+              start={{ x: 0.5, y: 0 }}
+              end={{ x: 0.5, y: 1 }}
+              className="absolute left-0 right-0 top-0 h-32"
+            />
 
-            {activeScreen === 'appointments' && (
-              <Text className="mt-10 text-center">Appointments Page</Text>
-            )}
-            {activeScreen === 'followup' && <FollowUpHome />}
-            {activeScreen === 'notifications' && <Notifications />}
+            <View className="flex-row items-center px-4 pb-6 pt-4">
+              <TouchableOpacity
+                onPress={() => setActiveScreen('home')}
+                className="rounded-full bg-white/80 p-3 shadow-md active:opacity-70"
+                style={{ elevation: 4 }}>
+                <ChevronLeft size={28} color="#1e293b" strokeWidth={2.5} />
+              </TouchableOpacity>
+
+              <Text className="ml-4 text-3xl font-bold text-indigo-900">
+                {activeScreen === 'newpatient' && 'New Patient'}
+                {activeScreen === 'followup' && 'Add Follow Up'}
+                {activeScreen === 'notifications' && 'Notifications'}
+              </Text>
+            </View>
+
+            {/* Main Content with padding */}
+            <View className="flex-1 px-4 pb-6">
+              {activeScreen === 'newpatient' && <NewPatients />}
+              {activeScreen === 'followup' && <FollowUpHome />}
+              {activeScreen === 'notifications' && <Notifications />}
+            </View>
           </View>
         )}
       </SafeAreaView>
