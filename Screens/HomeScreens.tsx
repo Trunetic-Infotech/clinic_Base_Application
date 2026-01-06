@@ -13,10 +13,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { NewPatients } from '../components/patient/NewPatient';
 import { useState } from 'react';
 import FollowUpHome from 'components/home/FollowUpHome';
-import PatientsScreen from './PatientsScreens';
-import FollowUp from 'components/home/FollowUpHome';
+
 import Notifications from 'components/home/Notifications';
 import { useNavigation } from '@react-navigation/native';
+import CreatePrescription from 'components/home/CreatePrescription';
 type OverviewCard = { id: number; value: number; label: string };
 type ActionsCard = {
   id: number;
@@ -42,7 +42,7 @@ const overviewData: OverviewCard[] = [
 
 const actionsData: ActionsCard[] = [
   { id: 1, label: 'New Patients', icon: UserPlus, screen: 'newpatient' },
-  { id: 2, label: 'Create Prescriptions', icon: FileText, screen: 'appointments' },
+  { id: 2, label: 'Create Prescriptions', icon: FileText, screen: 'prescription' },
   { id: 3, label: 'Appointments', icon: CalendarCheck, screen: 'appointments' },
   { id: 4, label: 'Add Follow Up', icon: Repeat, screen: 'followup' },
 ];
@@ -101,10 +101,10 @@ export default function HomeScreen() {
   return (
     <LinearGradient
       colors={['rgba(162, 236, 255, 0.89)', '#FFFFFF']}
-      locations={[0.7, 0.5]}
+      locations={[0, 1]}
       start={{ x: 0.5, y: 0 }}
-      end={{ x: 0.5, y: 0.5 }}
-      style={{ flex: 1 }}>
+      end={{ x: 0.5, y: 1 }}
+      style={{ flex: 1 }}> 
       <ScrollView>
         <SafeAreaView className="flex-1" edges={['top']}>
           {activeScreen === 'home' ? (
@@ -131,7 +131,7 @@ export default function HomeScreen() {
               </View>
 
               {/* Overview Section */}
-              <View className="flex-1 overflow-hidden rounded-tl-[9%] rounded-tr-[9%] bg-white p-1">
+              <View className="flex-1 overflow-hidden rounded-tl-[10%] rounded-tr-[10%] bg-white p-1">
                 <View className="p-4">
                   <Text className="mb-4 text-xl font-semibold">Today's Overview</Text>
                   <View className="flex-row">
@@ -203,12 +203,13 @@ export default function HomeScreen() {
             // ===== Only Action Card Page =====
             <View className="flex-1">
               {/* Elegant Header with Back Button */}
-              <LinearGradient
-                colors={['rgba(162, 236, 255, 0.89)', 'transparent']}
-                start={{ x: 0.5, y: 0 }}
-                end={{ x: 0.5, y: 1 }}
-                className="absolute left-0 right-0 top-0 h-32"
-              />
+              {/* <LinearGradient
+              colors={['rgba(162, 236, 255, 0.89)', '#FFFFFF']}
+              locations={[0, 1]}
+              start={{ x: 0.5, y: 0 }}
+              end={{ x: 0.5, y: 1 }}
+              style={{ flex: 1 }}
+            /> */}
 
               <View className="flex-row items-center px-4 pb-6 pt-4">
                 <TouchableOpacity
@@ -218,11 +219,11 @@ export default function HomeScreen() {
                   <ChevronLeft size={28} color="#1e293b" strokeWidth={2.5} />
                 </TouchableOpacity>
 
-                <Text className="ml-4 text-3xl font-bold text-indigo-900">
+                {/* <Text className="ml-4 text-3xl font-bold text-indigo-900">
                   {activeScreen === 'newpatient' && 'New Patient'}
                   {activeScreen === 'followup' && 'Add Follow Up'}
                   {activeScreen === 'notifications' && 'Notifications'}
-                </Text>
+                </Text> */}
               </View>
 
               {/* Main Content with padding */}
@@ -230,6 +231,7 @@ export default function HomeScreen() {
                 {activeScreen === 'newpatient' && <NewPatients />}
                 {activeScreen === 'followup' && <FollowUpHome />}
                 {activeScreen === 'notifications' && <Notifications />}
+                {activeScreen === 'prescription' && <CreatePrescription />}
               </View>
             </View>
           )}
