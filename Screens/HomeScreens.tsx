@@ -17,6 +17,7 @@ import FollowUpHome from 'components/home/FollowUpHome';
 import Notifications from 'components/home/Notifications';
 import { useNavigation } from '@react-navigation/native';
 import CreatePrescription from 'components/home/CreatePrescription';
+import Appointments from 'components/home/Appointments';
 type OverviewCard = { id: number; value: number; label: string };
 type ActionsCard = {
   id: number;
@@ -88,7 +89,7 @@ const getStatusStyle = (status: string) => {
 };
 
 export default function HomeScreen() {
-  const navigation = useNavigation<any>();
+
   type Screen =
     | 'home'
     | 'newpatient'
@@ -104,7 +105,7 @@ export default function HomeScreen() {
       locations={[0, 1]}
       start={{ x: 0.5, y: 0 }}
       end={{ x: 0.5, y: 1 }}
-      style={{ flex: 1 }}> 
+      style={{ flex: 1 }}>
       <ScrollView>
         <SafeAreaView className="flex-1" edges={['top']}>
           {activeScreen === 'home' ? (
@@ -153,17 +154,25 @@ export default function HomeScreen() {
                     {actionsData.map((item) => {
                       const Icon = item.icon;
                       return (
+                        // <TouchableOpacity
+                        //   key={item.id}
+                        //   onPress={() => {
+                        //     if (item.screen === 'appointments') {
+                        //       // This switches to the actual Patients tab
+                        //       navigation.navigate('appointments');
+                        //     } else {
+                        //       // Keep local overlay for other screens
+                        //       setActiveScreen(item.screen);
+                        //     }
+                        //   }}
+                        //   className="mx-1 mb-3 flex-1 items-center rounded-xl border border-gray-400 p-2">
+                        //   <Icon size={28} color="#2563EB" />
+                        //   <Text className="mt-2 text-center text-sm font-medium">{item.label}</Text>
+                        // </TouchableOpacity>
+
                         <TouchableOpacity
                           key={item.id}
-                          onPress={() => {
-                            if (item.screen === 'appointments') {
-                              // This switches to the actual Patients tab
-                              navigation.navigate('Patients');
-                            } else {
-                              // Keep local overlay for other screens
-                              setActiveScreen(item.screen);
-                            }
-                          }}
+                          onPress={() => setActiveScreen(item.screen)} // ✅ works for all screens
                           className="mx-1 mb-3 flex-1 items-center rounded-xl border border-gray-400 p-2">
                           <Icon size={28} color="#2563EB" />
                           <Text className="mt-2 text-center text-sm font-medium">{item.label}</Text>
@@ -232,6 +241,7 @@ export default function HomeScreen() {
                 {activeScreen === 'followup' && <FollowUpHome />}
                 {activeScreen === 'notifications' && <Notifications />}
                 {activeScreen === 'prescription' && <CreatePrescription />}
+                {activeScreen === 'appointments' && <Appointments />}
               </View>
             </View>
           )}
