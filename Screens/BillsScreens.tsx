@@ -7,7 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../Screens/RootNavigator';
 
-
 type BillTab = 'ALL' | 'PAID' | 'PENDING';
 
 type Bill = {
@@ -41,7 +40,6 @@ const BillsScreens: React.FC = () => {
   }, [activeTab, search]);
 
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
 
   return (
     <LinearGradient
