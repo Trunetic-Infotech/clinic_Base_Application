@@ -146,7 +146,7 @@ export default function HomeScreen() {
                 </View>
 
                 {/* Actions Section */}
-                <View className="border-gray-200 p-3">
+                <View className="border-gray-200 p-2">
                   <Text className="mb-4 ml-4 mt-1 text-xl font-bold">Quick Actions</Text>
                   {/* <View className="flex-row flex-wrap">
                     {actionsData.map((item) => {
