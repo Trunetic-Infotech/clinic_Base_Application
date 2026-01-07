@@ -132,7 +132,7 @@ export default function HomeScreen() {
               </View>
 
               {/* Overview Section */}
-              <View className="flex-1 overflow-hidden rounded-tl-[10%] rounded-tr-[10%] bg-white p-1">
+              <View className="flex-1 mt-3 overflow-hidden rounded-tl-[15%] rounded-tr-[15%] bg-white p-3">
                 <View className="p-4">
                   <Text className="mb-4 text-xl font-semibold">Today's Overview</Text>
                   <View className="flex-row">
@@ -148,7 +148,7 @@ export default function HomeScreen() {
                 </View>
 
                 {/* Actions Section */}
-                <View className="border-gray-200 p-3">
+                <View className="border-gray-200 p-2">
                   <Text className="mb-4 ml-4 mt-1 text-xl font-bold">Quick Actions</Text>
                   <View className="flex-row flex-wrap">
                     {actionsData.map((item) => {
