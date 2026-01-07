@@ -1,6 +1,7 @@
-//Include ViewReports on click
-import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RootStackParamList } from 'Screens/RootNavigator';
 
 type LabReport = {
   id: string;
@@ -22,6 +23,9 @@ const PatientLabReportList = ({ reports, onViewReport }: PatientLabReportListPro
       </View>
     );
   }
+
+  type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
+  const navigation = useNavigation<NavigationProp>();
 
   return (
     <View className="mt-4">
@@ -53,7 +57,9 @@ const PatientLabReportList = ({ reports, onViewReport }: PatientLabReportListPro
           </View>
 
           {/* View Report Link */}
-          <TouchableOpacity onPress={() => onViewReport?.(report.id)} className="mt-4 items-end">
+          <TouchableOpacity
+            onPress={() => navigation.navigate('ViewReport')}
+            className="mt-4 items-end">
             <Text className="font-medium text-blue-600">View Report</Text>
           </TouchableOpacity>
         </View>

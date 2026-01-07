@@ -59,7 +59,6 @@ const appointments: Appointment[] = [
     gender: 'Female',
     status: 'TODAY',
   },
-
 ];
 
 const getStatusStyle = (status: string) => {
@@ -76,6 +75,8 @@ const getStatusStyle = (status: string) => {
 };
 
 export default function AppointmentsScreen() {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   const [activeTab, setActiveTab] = useState<'ALL' | 'TODAY' | 'UPCOMING' | 'COMPLETED'>('ALL');
 
   const filteredAppointments = useMemo(() => {

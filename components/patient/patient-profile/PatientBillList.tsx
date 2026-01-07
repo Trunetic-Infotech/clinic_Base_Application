@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import HeroButton from 'components/common/buttons/HeroButton';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from 'Screens/RootNavigator';
 
 type Bill = {
   id: string;
@@ -16,6 +19,9 @@ type PatientBillListProps = {
 };
 
 const PatientBillList = ({ bills, onViewInvoice }: PatientBillListProps) => {
+  type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
+  const navigation = useNavigation<NavigationProp>();
+
   if (bills.length === 0) {
     return (
       <View className="mt-20 items-center">
@@ -57,7 +63,7 @@ const PatientBillList = ({ bills, onViewInvoice }: PatientBillListProps) => {
             {/* View Invoice Button - Using your HeroButton */}
             <HeroButton
               title="View Invoice"
-              onPress={() => onViewInvoice?.(bill.id)}
+              onPress={() => navigation.navigate('Invoice')}
               width={90}
               height={34}
               className="self-start"
