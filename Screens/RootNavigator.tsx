@@ -4,18 +4,31 @@ import Tabs from './Tabs';
 import ViewBill from '../components/patient/ViewBill';
 import PatientProfileScreen from 'components/patient/patient-profile/PatientDetailProfile';
 
-
 import CreatePrescription from 'components/home/CreatePrescription';
 import { NewPatients } from 'components/patient/NewPatient';
 import Appointments from 'components/home/Appointments';
 import FollowUp from 'components/home/FollowUpHome';
-
-
+import ViewReportScreen from 'components/patient/ViewReport';
+import GenerateBill from 'components/Bills/GenerateBill';
+import AddLabTest from 'components/patient/patient-detail-tab/AddLabTest';
+import AddVisit from 'components/patient/patient-detail-tab/AddVisit';
+import InvoiceScreen from 'components/patient/ViewBill';
+import Notifications from 'components/home/Notifications';
 
 export type RootStackParamList = {
   Tabs: undefined;
-  ViewBill: { billId: number }; // ✅ MATCH NAME
+  ViewBill: { billId: number };
   PatientProfile: { patientId: string } | undefined;
+  NewPatient: undefined;
+  Prescription: undefined;
+  Appointments: undefined;
+  FollowUp: undefined;
+  ViewReport: undefined;
+  GenerateBill: undefined;
+  AddLabTest: undefined;
+  AddVisit: undefined;
+  Invoice: undefined;
+  Notifications: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -30,6 +43,12 @@ const RootNavigator = () => {
       <Stack.Screen name="Prescription" component={CreatePrescription} />
       <Stack.Screen name="Appointments" component={Appointments} />
       <Stack.Screen name="FollowUp" component={FollowUp} />
+      <Stack.Screen name="ViewReport" component={ViewReportScreen} />
+      <Stack.Screen name="GenerateBill" component={GenerateBill} />
+      <Stack.Screen name="AddLabTest" component={AddLabTest} />
+      <Stack.Screen name="AddVisit" component={AddVisit} />
+      <Stack.Screen name="Invoice" component={InvoiceScreen} />
+      <Stack.Screen name="Notifications" component={Notifications} />
     </Stack.Navigator>
   );
 };
