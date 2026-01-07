@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const CreatePrescription: React.FC = () => {
   return (
-    <SafeAreaView className="flex-1 ">
+    <SafeAreaView className="flex-1 p-2 ">
       <Text className="mt-4 text-center text-3xl font-bold text-indigo-900">
         Create Prescription
       </Text>

@@ -35,7 +35,7 @@ export const NewPatients: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
     <SafeAreaView className="flex-1 ">
       <ScrollView className="p-3">
         <Text className=" text-center text-3xl font-bold text-indigo-900">New Patient</Text>
-        <View className="mt-[5%] rounded-tl-[7%] rounded-tr-[7%] bg-white p-4  ">
+        <View className="mt-[5%] rounded-tl-[30px] rounded-tr-[30px] bg-white p-4  ">
           {/* Full Name */}
           <Text className="mb-1 mt-4 text-lg font-semibold">Full Name </Text>
           <TextInput

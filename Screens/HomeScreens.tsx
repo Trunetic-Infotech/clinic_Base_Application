@@ -10,14 +10,11 @@ import {
   ChevronLeft,
 } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { NewPatients } from '../components/patient/NewPatient';
 import { useState } from 'react';
-import FollowUpHome from 'components/home/FollowUpHome';
-
-import Notifications from 'components/home/Notifications';
 import { useNavigation } from '@react-navigation/native';
-import CreatePrescription from 'components/home/CreatePrescription';
-import Appointments from 'components/home/Appointments';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from './RootNavigator';
+
 type OverviewCard = { id: number; value: number; label: string };
 type ActionsCard = {
   id: number;
@@ -89,7 +86,6 @@ const getStatusStyle = (status: string) => {
 };
 
 export default function HomeScreen() {
-
   type Screen =
     | 'home'
     | 'newpatient'
@@ -98,6 +94,8 @@ export default function HomeScreen() {
     | 'followup'
     | 'notifications';
   const [activeScreen, setActiveScreen] = useState<Screen>('home');
+
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
     <LinearGradient
@@ -119,7 +117,7 @@ export default function HomeScreen() {
                 </View>
 
                 <View className="mt-6 flex-row items-center gap-4">
-                  <Pressable onPress={() => setActiveScreen('notifications')}>
+                  <Pressable onPress={() => setActiveScreen('home')}>
                     <Bell size={34} color="black" />
                   </Pressable>
                   <View>
@@ -132,7 +130,7 @@ export default function HomeScreen() {
               </View>
 
               {/* Overview Section */}
-              <View className="flex-1 mt-3 overflow-hidden rounded-tl-[15%] rounded-tr-[15%] bg-white p-3">
+              <View className="flex-1 overflow-hidden rounded-tl-[30px] rounded-tr-[30px] bg-white p-1">
                 <View className="p-4">
                   <Text className="mb-4 text-xl font-semibold">Today's Overview</Text>
                   <View className="flex-row">
@@ -150,7 +148,7 @@ export default function HomeScreen() {
                 {/* Actions Section */}
                 <View className="border-gray-200 p-2">
                   <Text className="mb-4 ml-4 mt-1 text-xl font-bold">Quick Actions</Text>
-                  <View className="flex-row flex-wrap">
+                  {/* <View className="flex-row flex-wrap">
                     {actionsData.map((item) => {
                       const Icon = item.icon;
                       return (
@@ -173,6 +171,42 @@ export default function HomeScreen() {
                         <TouchableOpacity
                           key={item.id}
                           onPress={() => setActiveScreen(item.screen)} // ✅ works for all screens
+                          className="mx-1 mb-3 flex-1 items-center rounded-xl border border-gray-400 p-2">
+                          <Icon size={28} color="#2563EB" />
+                          <Text className="mt-2 text-center text-sm font-medium">{item.label}</Text>
+                        </TouchableOpacity>
+                      );
+                    })}
+                  </View> */}
+
+                  {/*  New Actions Section */}
+
+                  <View className="flex-row flex-wrap">
+                    {actionsData.map((item) => {
+                      const Icon = item.icon;
+
+                      return (
+                        <TouchableOpacity
+                          key={item.id}
+                          onPress={() => {
+                            switch (item.screen) {
+                              case 'newpatient':
+                                navigation.navigate('NewPatient');
+                                break;
+                              case 'prescription':
+                                navigation.navigate('Prescription');
+                                break;
+                              case 'appointments':
+                                navigation.navigate('Appointments');
+                                break;
+                              case 'followup':
+                                navigation.navigate('FollowUp');
+                                break;
+                              case 'notifications':
+                                navigation.navigate('Notifications');
+                                break;
+                            }
+                          }}
                           className="mx-1 mb-3 flex-1 items-center rounded-xl border border-gray-400 p-2">
                           <Icon size={28} color="#2563EB" />
                           <Text className="mt-2 text-center text-sm font-medium">{item.label}</Text>
@@ -236,13 +270,13 @@ export default function HomeScreen() {
               </View>
 
               {/* Main Content with padding */}
-              <View className="flex-1 px-4 pb-6">
+              {/* <View className="flex-1 px-4 pb-6">
                 {activeScreen === 'newpatient' && <NewPatients />}
                 {activeScreen === 'followup' && <FollowUpHome />}
                 {activeScreen === 'notifications' && <Notifications />}
                 {activeScreen === 'prescription' && <CreatePrescription />}
                 {activeScreen === 'appointments' && <Appointments />}
-              </View>
+              </View> */}
             </View>
           )}
         </SafeAreaView>
