@@ -4,13 +4,13 @@ import Tabs from './Tabs';
 import ViewBill from '../components/patient/ViewBill';
 import PatientProfileScreen from 'components/patient/patient-profile/PatientDetailProfile';
 
-
 import CreatePrescription from 'components/home/CreatePrescription';
 import { NewPatients } from 'components/patient/NewPatient';
 import Appointments from 'components/home/Appointments';
+
+import AddVisit from '../components/patient/patient-detail-tab/AddVisit';
 import FollowUp from 'components/home/FollowUpHome';
-
-
+import NewAppointment from 'components/appointment/NewAppointment';
 
 export type RootStackParamList = {
   Tabs: undefined;
@@ -30,6 +30,8 @@ const RootNavigator = () => {
       <Stack.Screen name="Prescription" component={CreatePrescription} />
       <Stack.Screen name="Appointments" component={Appointments} />
       <Stack.Screen name="FollowUp" component={FollowUp} />
+      <Stack.Screen name="AddVisit" component={AddVisit} />
+      <Stack.Screen name="NewAppointments" component={NewAppointment} />
     </Stack.Navigator>
   );
 };

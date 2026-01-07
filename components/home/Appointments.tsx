@@ -2,6 +2,12 @@ import React, { useState, useMemo } from 'react';
 import { View, Text, ScrollView, Pressable, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from 'Screens/RootNavigator';
+import { Plus } from 'lucide-react-native';
+
+
 
 type Appointment = {
   id: number;
@@ -76,14 +82,27 @@ export default function AppointmentsScreen() {
     return appointments.filter((item) => (activeTab === 'ALL' ? true : item.status === activeTab));
   }, [activeTab]);
 
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+
   return (
     <LinearGradient
       colors={['rgba(162,236,255,0.89)', '#FFFFFF']}
       start={{ x: 0.5, y: 0 }}
       end={{ x: 0.5, y: 1 }}
       style={{ flex: 1 }}>
-      <SafeAreaView className="flex-1 px-4 p-2">
-        <Text className="mt-4 text-center text-3xl font-bold text-indigo-900">Appointments</Text>
+      <SafeAreaView className="flex-1 p-2 px-4">
+        <View className="mt-4 flex-row items-center justify-between px-2">
+          {/* Title */}
+          <Text className="text-3xl font-bold text-indigo-900">Appointments</Text>
+
+          {/* Plus Button */}
+          <Pressable
+            onPress={() => navigation.navigate('NewAppointments')}
+            className="rounded-full bg-indigo-600 p-2 active:opacity-80">
+            <Plus size={26} color="#ffffff" strokeWidth={2.5} />
+          </Pressable>
+        </View>
 
         {/* Tabs */}
         <View className="my-4 flex-row justify-around">
@@ -134,7 +153,11 @@ export default function AppointmentsScreen() {
                     {item.status}
                   </Text>
                   <Pressable
-                    onPress={() => console.log(`Start Visit / View Details for ${item.name}`)}
+                    onPress={() =>
+                      navigation.navigate('AddVisit', {
+                        patientID: item.id,
+                      })
+                    }
                     className="mt-2 rounded-lg bg-indigo-600 px-3 py-1.5">
                     <Text className="text-xs font-semibold text-white">
                       {item.status === 'TODAY' ? 'Start Visit' : 'View Details'}
