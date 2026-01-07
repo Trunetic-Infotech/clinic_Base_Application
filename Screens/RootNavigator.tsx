@@ -14,6 +14,7 @@ import AddLabTest from 'components/patient/patient-detail-tab/AddLabTest';
 import AddVisit from 'components/patient/patient-detail-tab/AddVisit';
 import InvoiceScreen from 'components/patient/ViewBill';
 import Notifications from 'components/home/Notifications';
+import NewAppointment from 'components/appointment/NewAppointment';
 
 export type RootStackParamList = {
   Tabs: undefined;
@@ -49,6 +50,8 @@ const RootNavigator = () => {
       <Stack.Screen name="AddVisit" component={AddVisit} />
       <Stack.Screen name="Invoice" component={InvoiceScreen} />
       <Stack.Screen name="Notifications" component={Notifications} />
+      <Stack.Screen name="AddVisit" component={AddVisit} />
+      <Stack.Screen name="NewAppointments" component={NewAppointment} />
     </Stack.Navigator>
   );
 };
