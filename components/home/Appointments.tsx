@@ -45,6 +45,15 @@ const appointments: Appointment[] = [
     gender: 'Female',
     status: 'TODAY',
   },
+  {
+    id: 5,
+    name: 'Neha Singh',
+    date: '14 Sep 2025',
+    time: '01:00 PM',
+    gender: 'Female',
+    status: 'TODAY',
+  },
+
 ];
 
 const getStatusStyle = (status: string) => {
@@ -73,7 +82,7 @@ export default function AppointmentsScreen() {
       start={{ x: 0.5, y: 0 }}
       end={{ x: 0.5, y: 1 }}
       style={{ flex: 1 }}>
-      <SafeAreaView className="flex-1 px-4">
+      <SafeAreaView className="flex-1 px-4 p-2">
         <Text className="mt-4 text-center text-3xl font-bold text-indigo-900">Appointments</Text>
 
         {/* Tabs */}
