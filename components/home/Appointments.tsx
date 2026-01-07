@@ -2,6 +2,9 @@ import React, { useState, useMemo } from 'react';
 import { View, Text, ScrollView, Pressable, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from 'Screens/RootNavigator';
 
 type Appointment = {
   id: number;
@@ -53,7 +56,6 @@ const appointments: Appointment[] = [
     gender: 'Female',
     status: 'TODAY',
   },
-
 ];
 
 const getStatusStyle = (status: string) => {
@@ -70,6 +72,8 @@ const getStatusStyle = (status: string) => {
 };
 
 export default function AppointmentsScreen() {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   const [activeTab, setActiveTab] = useState<'ALL' | 'TODAY' | 'UPCOMING' | 'COMPLETED'>('ALL');
 
   const filteredAppointments = useMemo(() => {
@@ -82,7 +86,7 @@ export default function AppointmentsScreen() {
       start={{ x: 0.5, y: 0 }}
       end={{ x: 0.5, y: 1 }}
       style={{ flex: 1 }}>
-      <SafeAreaView className="flex-1 px-4 p-2">
+      <SafeAreaView className="flex-1 p-2 px-4">
         <Text className="mt-4 text-center text-3xl font-bold text-indigo-900">Appointments</Text>
 
         {/* Tabs */}
@@ -134,7 +138,7 @@ export default function AppointmentsScreen() {
                     {item.status}
                   </Text>
                   <Pressable
-                    onPress={() => console.log(`Start Visit / View Details for ${item.name}`)}
+                    onPress={() => navigation.navigate('AddVisit')}
                     className="mt-2 rounded-lg bg-indigo-600 px-3 py-1.5">
                     <Text className="text-xs font-semibold text-white">
                       {item.status === 'TODAY' ? 'Start Visit' : 'View Details'}
