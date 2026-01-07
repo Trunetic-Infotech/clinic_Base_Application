@@ -172,7 +172,9 @@ export default function PatientsScreen() {
   });
 
   const renderPatient = ({ item }: { item: Patient }) => (
-    <TouchableOpacity style={styles.patientCard}>
+    <TouchableOpacity
+      style={styles.patientCard}
+      onPress={() => navigation.navigate('PatientProfile', { patientId: item.id })}>
       <View style={styles.avatarContainer}>
         <Image source={{ uri: 'https://picsum.photos/200/60' }} style={styles.avatar} />
       </View>
