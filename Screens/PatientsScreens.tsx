@@ -3,6 +3,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 type Patient = {
   id: string;
@@ -22,7 +23,7 @@ const patientsData: Patient[] = [
     gender: 'Male',
     lastVisit: '9 days ago',
     tag: 'Follow-up due',
-    tagColor: '#FFD700',
+    tagColor: '#FF9800',
   },
   {
     id: '2',
@@ -48,7 +49,7 @@ const patientsData: Patient[] = [
     age: 35,
     gender: 'Male',
     lastVisit: '2 days ago',
-    tag: 'Chronic',
+    tag: 'Follow-up due',
     tagColor: '#FF9800',
   },
   {
@@ -58,9 +59,17 @@ const patientsData: Patient[] = [
     gender: 'Female',
     lastVisit: '2 days ago',
     tag: 'Follow-up due',
-    tagColor: '#FFD700',
+    tagColor: '#FF9800',
   },
-  { id: '6', name: 'Jane Smith', age: 25, gender: 'Female', lastVisit: '2 days ago' },
+  {
+    id: '6',
+    name: 'Jane Smith',
+    age: 25,
+    gender: 'Female',
+    lastVisit: '2 days ago',
+    tag: 'Follow-up due',
+    tagColor: '#FF9800',
+  },
 ];
 
 const tabs = ['All', 'New', 'Follow-up', 'Today'];
@@ -148,6 +157,7 @@ const styles = StyleSheet.create({
 });
 
 export default function PatientsScreen() {
+  const navigation = useNavigation<any>();
   const [selectedTab, setSelectedTab] = useState('All');
   const [search, setSearch] = useState('');
 
