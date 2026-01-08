@@ -1,9 +1,9 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import Tabs from './Tabs';
 import ViewBill from '../components/patient/ViewBill';
 import PatientProfileScreen from 'components/patient/patient-profile/PatientDetailProfile';
-
 import CreatePrescription from 'components/home/CreatePrescription';
 import { NewPatients } from 'components/patient/NewPatient';
 import Appointments from 'components/home/Appointments';
