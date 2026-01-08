@@ -30,6 +30,7 @@ export type RootStackParamList = {
   AddVisit: undefined;
   Invoice: undefined;
   Notifications: undefined;
+  NewAppointments: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -50,7 +51,6 @@ const RootNavigator = () => {
       <Stack.Screen name="AddVisit" component={AddVisit} />
       <Stack.Screen name="Invoice" component={InvoiceScreen} />
       <Stack.Screen name="Notifications" component={Notifications} />
-      <Stack.Screen name="AddVisit" component={AddVisit} />
       <Stack.Screen name="NewAppointments" component={NewAppointment} />
     </Stack.Navigator>
   );
